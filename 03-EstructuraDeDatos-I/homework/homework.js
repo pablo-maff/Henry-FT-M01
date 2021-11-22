@@ -7,6 +7,7 @@ function nFactorial(n) {
   // devolvé el factorial de n (n!)
   // ej:
   // el factorial de 3 es 6 (3 * 2 * 1)
+  
 }
 
 function nFibonacci(n) {
@@ -23,14 +24,37 @@ function nFibonacci(n) {
 // enqueue: Agrega un valor a la queue. Respeta el orden existente.
 // dequeue: Remueve un valor de la queue. Obedece a FIFO y respeta el underflow (devuelve undefined cuando la queue tiene size cero, o sea, cuando no tiene ningún elemento).
 // size: Devuelve el número de elementos que contiene la queue.
+function Algo (){
+  class Rectangle {
+    constructor(height, width) {
+      this.height = height;
+      this.width = width;
+    }
+  }
+}
+
 
 function Queue() {
-
+  this.arr = []
 }
+Queue.prototype.size = () => {
+  return this.arr.length;
+}
+
+Queue.prototype.enqueue = function(elem) {
+  this.arr.push(elem);
+}
+
+Queue.prototype.dequeue = function() {
+  return this.arr.shift();
+}
+
+//let queue = new Queue();
+//console.log(typeof queue.enqueue())
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
-
 module.exports = {
   Queue,
   nFactorial,

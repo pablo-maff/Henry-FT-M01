@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "jest --collectCoverage=false CS.test.js",
+    "test": "jest --collectCoverage=false",
+    "test2": "jest CS.test.js  --useStderr --json --outputFile=./00-IntroToCS/homework/tests/result.json",
+    "test3": "jest JSAI.test.js  --useStderr --json --outputFile=./02-JavaScriptAvanzado-II/homework/tests/result.json",
+    "test4": "jest DataStructureI.test.js  --useStderr --json --outputFile=./03-EstructuraDeDatos-I/homework/tests/DataStructureI.test.js",
+    "test5": "jest DataStructureII.test.js  --useStderr --json --outputFile=./04-EstructuraDeDatos-II/homework/tests/DataStructureII.test.js",
+    "test6": "jest DataStructureIII.test.js  --useStderr --json --outputFile=./05-EstructuraDeDatos-III/homework/tests/DataStructureIII.test.js",
+    "test7": "jest AlgoritmosI.test.js  --useStderr --json --outputFile=./06-Algoritmos-I/homework/tests/AlgoritmosI.test.js",
+    "test8": "jest AlgoritmosII.test.js  --useStderr --json --outputFile=./07-Algoritmos-II/homework/tests/AlgoritmosII.test.js",
     "grade": "jest --useStderr --json --outputFile=./tests/result.json"
   },
   "devDependencies": {
