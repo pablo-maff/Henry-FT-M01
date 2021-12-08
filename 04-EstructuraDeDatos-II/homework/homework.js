@@ -11,58 +11,82 @@
 // search: Busca un valor dentro de la lista. Puede recibir un valor o una función. Si no hubiera resultados, devuelve null.
 
 function LinkedList() {
-  this.head = null;
-  this._length = 0;
-}
-LinkedList.prototype.add = function (value){ 
-  let node = new Node(value);
-  let contenedor;
-  if (this.head === null){
-    this.head = node;
-    this._length ++;
-    return
-  } else {
-    contenedor = this.head;
-  } 
-  while (contenedor.next){
-    contenedor = contenedor.next
-  }
-  contenedor.next = node;
-  this._length ++;
-}
-
-LinkedList.prototype.remove = function (){
-  if (this.head === null){
-    return
-  } if (this.head._length === 1) {
-    console.log('Este es el ultimo elemento')
-    this.head = null;
-    this.head._length --;
-    return 1;}
-  let contenedor = this.head;
-  let cont2;
-  while (contenedor.next){
-    cont2 = contenedor;
-    contenedor = contenedor.next}
-    cont2.next = null;
-    return contenedor.value;
-}
-
-LinkedList.prototype.search = function (value){
-  let contenedor = this.head;
-  while(contenedor){
-    if (contenedor.value === value){
-      return contenedor.value;
-    }
-    contenedor = contenedor.next;
-  }
-  return null;
+  this._length = 0; // Length
+  this.head = null; // Puntero
 }
 
 function Node(value){
-  this.value = value;
-  this.next = null;
+  this.value = value; // Datos
+  this.next = null; // Puntero
 }
+
+LinkedList.prototype.add = function(data) {
+  let node = new Node(data), // Initialize node
+  current = this.head;  // Pointer
+  // If list is empty
+  if (!current) {
+    this.head = node; // The head pointer now is pointing to the new node
+    this._length++;  // Length +1
+    return node;
+  }
+  // If not empty, traverse the whole list to find the last node
+  while (current.next != null) {
+    current = current.next; // Set pointer on the last node of the list
+  }
+  current.next = node; // Add new node at the end of the list
+  this._length++; // Length +1
+  return node;
+};
+
+LinkedList.prototype.remove = function() {
+  let pointer = this.head; // Set pointer to head
+  // If list is empty return null
+  if (!pointer) return null;
+  // If list has 1 element, return element vale and remove it.
+  if (pointer.next == null) {  // if next is null means that there is no next, therefore is a 1 element list
+    this.head = null  // Set node to null
+    return pointer.value; // return removed node value
+  }
+  // If two positions ahead of the pointer is null, we found the end of the list!
+  while (pointer.next.next != null) { 
+		pointer = pointer.next; // Set pointer to the second last node
+	}
+  let aux = pointer.next.value // Save last node value
+	pointer.next = null; // Make last node null (remove)
+	this._length--; // Length -1
+  return aux; // Return node value
+}
+
+LinkedList.prototype.search = function(val) {
+	let pointer = this.head; // Set pointer to head of the list
+  // If list is empty
+	if (!pointer) return null;
+	let check = false; // Flag
+  // If val is found
+	if (pointer.value == val) check = true; // Set flag as true
+  // If val not found traverse the list until the end
+	while (!check && pointer.next != null) {
+		pointer = pointer.next; // Set pointer one position ahead with each iteration
+		if (pointer.value == val) check = true; // If val is found, set flag as true
+	}
+  // If val is in the list return val
+	if (check) {
+		return pointer.value;
+  // If not found return undefined
+	} else {
+		return null;	
+	} 
+}
+
+
+let linkedList = new LinkedList();
+console.log(linkedList.add('one'));
+console.log(linkedList.add('two'));
+console.log(linkedList.search(function(nodeValue) {
+  return nodeValue === 'two';
+}))
+console.log(linkedList)
+
 
 // Hash Table( ver información en: https://es.wikipedia.org/wiki/Tabla_hash)
 // Una Hash table contiene un arreglo de "contenedores" o buckets donde puede guardar información.
@@ -77,34 +101,9 @@ function Node(value){
 //    - Retornar dicho valor.
 
 function HashTable() {
-  this.bucket = [];
-}
-
-HashTable.prototype.set = function(key,value) {
-  this.bucket.push({key,value});
-  console.log(this.bucket)
-}
-
-HashTable.prototype.get = function() {
-  // Devolver el valor de key
-}
-
-HashTable.prototype.hasKey = function() {
 
 }
 
-HashTable.prototype.hash = function(key) {
-  let acumulador = 0
-  for (let i=0; i <= key.length -1; i++) {
-    let clave = key[i].charCodeAt();
-    acumulador += clave;
-  };
-  return acumulador % this.bucket.length;
-};
-//var hashTable = new HashTable();
-//console.log(hashTable.set('a'))
-//console.log(hashTable.set('a'.charCodeAt(), 'a'))
-//console.log('a'.charCodeAt())
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
