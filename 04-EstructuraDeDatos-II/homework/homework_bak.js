@@ -137,17 +137,15 @@ HashTable.prototype.set = function(key, value) {
 
   if(!this.buckets[index]) {
     this.buckets[index] = [];
-    //this.buckets[index].push([key,value])
-  }
-  console.log(this.buckets)
-  //if (this.buckets[index] === index) {
-  this.bucket[index].push([key, value])
   }
   //console.log(index)
   //console.log(key, value)
   
+  //this.buckets[index] = [key,value]
+  this.buckets[index].push([key, value])
+
   //console.log(this.buckets[index])
-  console.log(this.buckets)
+  //console.log(this.buckets)
   return index
 }
 
@@ -155,9 +153,13 @@ HashTable.prototype.set = function(key, value) {
 HashTable.prototype.get = function(key) {
   let index = this.hash(key);
   //console.log(this.hasKey(key))
-  console.log(this.buckets)
-  if (this.hasKey(key)) {
-    return this.buckets[index][1]
+  //console.log(this.buckets)
+  //console.log(this.buckets[index])
+  //console.log(key)
+  console.log(this.hasKey(key, index))
+  if (this.hasKey(key, index)) {
+    //console.log(this.buckets[index][0][1])
+    return this.buckets[index][0][1]
   }
   /*
   if(!this.buckets[index]) return null;
@@ -168,10 +170,12 @@ HashTable.prototype.get = function(key) {
 }
 
 //Crear metodo hasKey
-HashTable.prototype.hasKey = function(key) {
-  let index = this.hash(key)
+HashTable.prototype.hasKey = function(key, index) {
+  //let index = this.hash(key)
+  //console.log(index)
   if(!this.buckets[index]) return false;
-  if (this.buckets[index][0] === key) {
+  //console.log(this.buckets[index][0][0])
+  if (this.buckets[index][0][0] === key) {
     return true
   }
 }
@@ -179,9 +183,9 @@ HashTable.prototype.hasKey = function(key) {
 let hashTable = new HashTable();
 
 console.log(hashTable.set('foo', 'bar1'))
-console.log(hashTable.set('ofo', 'bar2'))
+//console.log(hashTable.set('ofo', 'bar2'))
 //console.log(hashTable.get('ofo'))
-//console.log(hashTable.get('foo'))
+console.log(hashTable.get('foo'))
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
