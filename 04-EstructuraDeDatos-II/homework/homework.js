@@ -99,25 +99,14 @@ LinkedList.prototype.search = function(val) {
 //    - Usar el número obtenido, para buscar(llamando al método get) el contenedor o bucket donde está el valor.
 //    - Retornar dicho valor.
 
+
 function HashTable() {
   // Generar 35 buckets
   this.buckets = new Array(35);
   this.numBuckets = this.buckets.length;
-
-  //Almacenar valor asociado a una key
-  
-  
-
-  // Pasar la clave del elemento a buscar para determinar la posicion en que se encuentra
-
-  // Buscar (usa get) la posicion obtenida en los buckets y encontrar el valor
-
-  // Retornar el valor
-
-
 }
 
-// Crear hash function
+
 HashTable.prototype.hash = function(key) {
   // Pasar valor a la funcion hash (usar charCodeAt) en la posicion que debe ir en el arreglo
   // Esta funcion hasheadora deberia sumar los key code de las letras de la palabra,
@@ -129,59 +118,60 @@ HashTable.prototype.hash = function(key) {
   return sum % this.numBuckets;
 }
 
-// Crear metodo set
-HashTable.prototype.set = function(key, value) {
-  if (typeof key != 'string') throw new TypeError("Keys must be strings");
-  // Insertar elemento  (llamando al metodo set) en la posicion devuelta
-  let index = this.hash(key)
 
-  if(!this.buckets[index]) {
-    this.buckets[index] = [];
-    //this.buckets[index].push([key,value])
-  }
-  console.log(this.buckets)
-  //if (this.buckets[index] === index) {
-  this.bucket[index].push([key, value])
-  }
-  //console.log(index)
-  //console.log(key, value)
+HashTable.prototype.set = function(key, value) {
+  // If key is not a string, return TypeError
+  if (typeof key != 'string') throw new TypeError("Keys must be strings");
+  let index = this.hash(key);
   
-  //console.log(this.buckets[index])
-  console.log(this.buckets)
-  return index
+  // If bucket contains data
+  if (this.buckets[index]) {
+    // Check if key already exists
+    if (this.hasKey(key)) this.buckets[index] = [[key, value]] // Overwrite it in case the value has changed
+    // If key doesn't exists, append data into the bucket
+    this.buckets[index].push([key, value])
+  }
+  
+  // If bucket is empty
+  if(!this.buckets[index]) {
+    this.buckets[index] = []; // Create an empty bucket
+    this.buckets[index].push([key, value]) // Insert data
+}
+  // Return hashed key
+  return index;
 }
 
-// Crear metodo get
+
 HashTable.prototype.get = function(key) {
   let index = this.hash(key);
-  //console.log(this.hasKey(key))
-  console.log(this.buckets)
-  if (this.hasKey(key)) {
-    return this.buckets[index][1]
+
+  // If key is not found, return false
+  if(!this.hasKey(key)) return false;
+
+  // If table has key, return its value
+  if (this.buckets[index].length > 1) {
+    for (let clave of this.buckets[index]) {
+      if (clave[0] === key) { // If key is found, return its value
+        return clave[1]
+      }
+    } return false // If key is not found, return false
   }
-  /*
-  if(!this.buckets[index]) return null;
-  if (this.buckets[index][0] === key) {
-    return this.buckets[index][1]
-  }
-  */
+    return this.buckets[index][0][1] // Return value
 }
 
-//Crear metodo hasKey
+
 HashTable.prototype.hasKey = function(key) {
-  let index = this.hash(key)
+  let index = this.hash(key);
+  // If bucket is empty, return false
   if(!this.buckets[index]) return false;
-  if (this.buckets[index][0] === key) {
-    return true
-  }
+  // If bucket is not empty, search for the key
+  for (let clave of this.buckets[index]) {
+    if (clave[0] === key) { // If key is found, return true
+      return true
+    }
+  } return false // If key is not found, return false
 }
 
-let hashTable = new HashTable();
-
-console.log(hashTable.set('foo', 'bar1'))
-console.log(hashTable.set('ofo', 'bar2'))
-//console.log(hashTable.get('ofo'))
-//console.log(hashTable.get('foo'))
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
